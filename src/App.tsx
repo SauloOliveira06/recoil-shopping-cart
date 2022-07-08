@@ -3,23 +3,12 @@ import FakeProducts from './components/FakeProducts'
 import cartState from './atoms/CartState';
 import { useRecoilState } from 'recoil';
 import './App.scss';
-import { IProducts } from './interfaces/IProducts';
 import Basket from './components/Basket';
+import { AddCartItem } from './functions/AddCartItem';
+import { RemoveCartItem } from './functions/RemoveCartItem';
 
 const App = () => {
-  const [cart, setCart] = useRecoilState(cartState);
-
-  const AddCartItem = (products: IProducts) => {
-    setCart((cart: any) => {
-      return cart.find((item: any) => item.id !== products.id) ? cart : [...cart, products];
-    })
-  }
-
-  const removeCartItem = (products: IProducts) => {
-    setCart((cart: any) => {
-      return cart.filter((item: any) => item.id !== products.id)
-    })
-  }
+  const [cart,] = useRecoilState(cartState);
 
   return (
     <>
@@ -27,7 +16,7 @@ const App = () => {
         <FakeProducts onAddCartItem={AddCartItem}></FakeProducts>
       </React.Suspense>
       <div className='floatcart'>
-        <Basket products={cart} onRemoveCartItem={removeCartItem} />
+        <Basket products={cart} onRemoveCartItem={RemoveCartItem} />
       </div>
     </>
   );
